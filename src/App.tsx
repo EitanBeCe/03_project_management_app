@@ -1,5 +1,13 @@
+import MainSection from './components/MainSection.js'
+import SideBar from './components/SideBar.js'
+
 function App() {
-  return <h1 className="my-8 text-center text-5xl font-bold">Hello World</h1>
+  return (
+    <main className="flex flex-row">
+      <SideBar />
+      <MainSection />
+    </main>
+  )
 }
 
 export default App
