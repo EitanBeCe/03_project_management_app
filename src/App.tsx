@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import MainSection from './components/MainSection.js'
 import SideBar from './components/SideBar.js'
 import AddProjectPage from './components/AddProjectPage.js'
-import NoProjectsPage from './components/NoProjectsPage.js'
 import { ProjectCodable } from './models/ProjectCodable.js'
+import NoProjectsPage from './components/NoProjectsPage.js'
+import ProjectPage from './components/ProjectPage.js'
 
 function App() {
   const [projects, setProjects] = useState<ProjectCodable[]>([])
@@ -11,7 +11,7 @@ function App() {
   const [selectedProjectTitle, setSelectedProjectTitle] = useState('')
 
   return (
-    <main className="h-screen flex flex-row">
+    <main className="h-screen flex">
       <SideBar
         projects={projects}
         setIsAddProject={setIsAddProject}
@@ -19,13 +19,17 @@ function App() {
         setSelectedProjectTitle={setSelectedProjectTitle}
       />
 
-      {projects.length === 0 && !isAddProject && <NoProjectsPage />}
-
-      {isAddProject && (
+      {isAddProject ? (
         <AddProjectPage projects={projects} setProjects={setProjects} />
-      )}
+      ) : (
+        <section className="flex-1 p-10">
+          {projects.length === 0 && (
+            <NoProjectsPage setIsAddProject={setIsAddProject} />
+          )}
 
-      <MainSection projects={projects} />
+          {projects.length !== 0 && <ProjectPage />}
+        </section>
+      )}
     </main>
   )
 }
