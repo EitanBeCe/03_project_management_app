@@ -14,16 +14,16 @@ const NoProjectsPage = ({ setIsAddingProject }: Props) => {
         className="h-32 object-contain mx-auto"
       />
 
-      <h2 className="text-xl font-bold text-stone-500 my-4">
+      <h2 className="my-4 text-2xl font-bold text-slate-800">
         No Project Selected
       </h2>
-      <p className="text-stone-400 mb-4">
+      <p className="mb-4 text-base text-slate-500">
         Select a project or get started with a new one
       </p>
       <p className="mt-8">
         <button
           onClick={() => setIsAddingProject(true)}
-          className="bg-emerald-600 hover:bg-emerald-800 p-2 px-6 rounded-md text-white"
+          className="bg-teal-700 hover:bg-teal-800 p-2 px-6 rounded-md text-base font-semibold text-white"
         >
           + Create new project
         </button>

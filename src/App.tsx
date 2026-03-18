@@ -13,7 +13,7 @@ function App() {
   const selectedProject = projects.find(p => p.title === selectedProjectTitle)
 
   return (
-    <main className="h-screen flex">
+    <main className="flex h-screen bg-stone-50 text-slate-900">
       <SideBar
         projects={projects}
         setIsAddingProject={setIsAddingProject}

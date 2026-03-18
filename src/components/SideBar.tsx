@@ -14,14 +14,14 @@ const SideBar = ({
   selectedProjectTitle,
   setSelectedProjectTitle
 }: SideBarProps) => {
-  console.log(selectedProjectTitle)
-
   return (
-    <aside className="w-1/3 p-4 bg-purple-900 text-white md:w-72 rounded-r-xl">
-      <h2 className="text-3xl mt-4 mb-20 font-bold uppercase">Your projects</h2>
+    <aside className="w-1/3 p-4 bg-slate-900 text-slate-50 md:w-72 rounded-r-xl">
+      <h2 className="mt-4 mb-20 text-2xl font-bold uppercase text-stone-100">
+        Your projects
+      </h2>
 
       <button
-        className="text-xl bg-slate-600 p-1 px-4 rounded-md hover:bg-purple-400"
+        className="bg-teal-700 p-1 px-4 rounded-md text-base font-semibold text-white hover:bg-teal-600"
         onClick={() => setIsAddingProject(true)}
       >
         + Add Project
@@ -31,10 +31,10 @@ const SideBar = ({
         {projects.map(p => (
           <li
             key={p.title}
-            className={`py-1 px-3 rounded-md ${selectedProjectTitle === p.title ? 'bg-purple-500 pointer-events-none' : 'hover:bg-purple-700 '}`}
+            className={`py-1 px-3 rounded-md ${selectedProjectTitle === p.title ? 'bg-slate-700 text-teal-200 pointer-events-none' : 'text-slate-300 hover:bg-slate-800 hover:text-white'}`}
           >
             <button
-              className="line-clamp-1 w-full text-left"
+              className="line-clamp-1 w-full text-left text-sm font-medium"
               onClick={() => setSelectedProjectTitle(p.title)}
             >
               {p.title}

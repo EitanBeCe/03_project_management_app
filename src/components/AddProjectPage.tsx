@@ -48,14 +48,16 @@ const AddProjectPage = ({
   return (
     <section className="p-10 min-w-[50vw]">
       <Modal ref={errorModalRef}>
-        <h2>Invalid Inut</h2>
-        <p className="text-red-400 mt-2">No title, or title duplicate</p>
+        <h2 className="text-xl font-semibold text-stone-900">Invalid Input</h2>
+        <p className="mt-2 text-sm text-rose-600">
+          No title, or title duplicate
+        </p>
       </Modal>
 
       <menu className="flex gap-2">
         <li>
           <button
-            className="bg-emerald-600 hover:bg-emerald-800 p-2 px-6 rounded-md text-white"
+            className="bg-teal-700 hover:bg-teal-800 p-2 px-6 rounded-md text-base font-semibold text-white"
             onClick={addProject}
           >
             Save
@@ -64,7 +66,7 @@ const AddProjectPage = ({
 
         <li>
           <button
-            className="bg-slate-400 hover:bg-slate-600 p-2 px-4 rounded-md text-white"
+            className="bg-stone-300 hover:bg-stone-400 p-2 px-4 rounded-md text-base font-medium text-stone-700"
             onClick={() => setIsAddingProject(false)}
           >
             Cancel

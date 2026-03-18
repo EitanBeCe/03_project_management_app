@@ -22,11 +22,16 @@ const Modal = forwardRef<ModalHandle, Props>(({ children }, ref) => {
   if (!modalRoot) return null
 
   return createPortal(
-    <dialog ref={dialog}>
+    <dialog
+      ref={dialog}
+      className="rounded-xl bg-stone-50 text-stone-800 backdrop:bg-slate-900/45"
+    >
       {children}
 
       <form method="dialog">
-        <button>Close</button>
+        <button className="text-sm font-semibold text-teal-700 hover:text-teal-900">
+          Close
+        </button>
       </form>
     </dialog>,
     modalRoot
