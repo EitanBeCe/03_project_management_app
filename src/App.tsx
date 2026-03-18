@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import SideBar from './components/SideBar.js'
 import AddProjectPage from './components/AddProjectPage.js'
 import { ProjectCodable } from './models/ProjectCodable.js'
@@ -9,6 +9,14 @@ function App() {
   const [projects, setProjects] = useState<ProjectCodable[]>([])
   const [isAddingProject, setIsAddingProject] = useState(false)
   const [selectedProjectTitle, setSelectedProjectTitle] = useState('')
+
+  const selectedProject = projects.find(p => p.title === selectedProjectTitle)
+
+  useLayoutEffect(() => {
+    if (projects.length > 0 && !selectedProjectTitle) {
+      setSelectedProjectTitle(projects[projects.length - 1].title)
+    }
+  })
 
   return (
     <main className="h-screen flex">
@@ -31,7 +39,9 @@ function App() {
             <NoProjectsPage setIsAddingProject={setIsAddingProject} />
           )}
 
-          {projects.length !== 0 && <ProjectPage />}
+          {projects.length !== 0 && selectedProject && (
+            <ProjectPage selectedProject={selectedProject} />
+          )}
         </section>
       )}
     </main>

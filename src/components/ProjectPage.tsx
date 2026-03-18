@@ -1,9 +1,19 @@
 import React from 'react'
+import { ProjectCodable } from '../models/ProjectCodable.js'
 
-type Props = {}
+type Props = {
+  selectedProject: ProjectCodable
+}
 
-const ProjectPage = (props: Props) => {
-  return <div>ProjectPage</div>
+const ProjectPage = ({ selectedProject }: Props) => {
+  return (
+    <section>
+      Project
+      {selectedProject.title}
+      {selectedProject.description}
+      {selectedProject.dueDate}
+    </section>
+  )
 }
 
 export default ProjectPage

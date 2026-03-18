@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import { ProjectCodable } from '../models/ProjectCodable.js'
 
 interface SideBarProps {
@@ -31,10 +31,10 @@ const SideBar = ({
         {projects.map(p => (
           <li
             key={p.title}
-            className={`py-1 px-3 ${selectedProjectTitle === p.title ? 'bg-purple-500 rounded-md' : ''}`}
+            className={`py-1 px-3 rounded-md ${selectedProjectTitle === p.title ? 'bg-purple-500 pointer-events-none' : 'hover:bg-purple-700 '}`}
           >
             <button
-              className="line-clamp-1"
+              className="line-clamp-1 w-full text-left"
               onClick={() => setSelectedProjectTitle(p.title)}
             >
               {p.title}
