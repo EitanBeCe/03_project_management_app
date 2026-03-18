@@ -18,7 +18,7 @@ const SideBar = ({
 
   return (
     <aside className="w-1/3 p-4 bg-purple-900 text-white md:w-72 rounded-r-xl">
-      <h2 className="text-3xl my-28 font-bold uppercase">Your projects</h2>
+      <h2 className="text-3xl mt-4 mb-20 font-bold uppercase">Your projects</h2>
 
       <button
         className="text-xl bg-slate-600 p-1 px-4 rounded-md hover:bg-purple-400"

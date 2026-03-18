@@ -6,12 +6,14 @@ type Props = {
   projects: ProjectCodable[]
   setProjects: Dispatch<SetStateAction<ProjectCodable[]>>
   setIsAddingProject: Dispatch<SetStateAction<boolean>>
+  setSelectedProjectTitle: Dispatch<SetStateAction<string>>
 }
 
 const AddProjectPage = ({
   projects,
   setProjects,
-  setIsAddingProject
+  setIsAddingProject,
+  setSelectedProjectTitle
 }: Props) => {
   const [isTitleError, setIsTitleError] = useState(false)
 
@@ -39,6 +41,7 @@ const AddProjectPage = ({
     }
 
     setProjects(prev => [...prev, newProject])
+    setSelectedProjectTitle(newProject.title)
     setIsAddingProject(false)
   }
 
