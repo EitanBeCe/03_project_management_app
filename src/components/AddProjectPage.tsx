@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, SetStateAction, useRef, useState } from 'react'
+import { Dispatch, SetStateAction, useRef, useState } from 'react'
 import { ProjectCodable } from '../models/ProjectCodable.js'
 import Input from './Input.js'
 
@@ -15,20 +15,26 @@ const AddProjectPage = ({ projects, setProjects }: Props) => {
   const description = useRef<HTMLTextAreaElement>(null)
   const dueDate = useRef<HTMLInputElement>(null)
 
-  const addProject = (newProject: ProjectCodable | null) => {
-    if (!newProject) {
+  const buildProject = (): ProjectCodable => ({
+    title: title.current?.value.trim() ?? '',
+    description: description.current?.value ?? '',
+    dueDate: dueDate.current?.value ?? ''
+  })
+
+  const addProject = () => {
+    const newProject = buildProject()
+
+    const hasInvalidTitle =
+      newProject.title === '' ||
+      projects.some(project => project.title === newProject.title)
+
+    setIsTitleError(hasInvalidTitle)
+
+    if (hasInvalidTitle) {
       return
     }
 
-    if (
-      projects.some(p => p.title === newProject.title) ||
-      newProject.title.trim() === ''
-    ) {
-      setIsTitleError(true)
-    } else {
-      setIsTitleError(false)
-      setProjects(prev => [...prev, newProject])
-    }
+    setProjects(prev => [...prev, newProject])
   }
 
   return (
@@ -37,13 +43,7 @@ const AddProjectPage = ({ projects, setProjects }: Props) => {
         <li>
           <button
             className="bg-emerald-600 hover:bg-emerald-800 p-2 px-6 rounded-md text-white"
-            onClick={() =>
-              addProject({
-                title: title.current?.value ?? '',
-                description: description.current?.value ?? '',
-                dueDate: dueDate.current?.value ?? ''
-              })
-            }
+            onClick={addProject}
           >
             Save
           </button>
