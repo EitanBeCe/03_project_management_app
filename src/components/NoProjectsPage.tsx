@@ -2,10 +2,10 @@ import { Dispatch, SetStateAction } from 'react'
 import img from '../assets/no-projects.png'
 
 type Props = {
-  setIsAddProject: Dispatch<SetStateAction<boolean>>
+  setIsAddingProject: Dispatch<SetStateAction<boolean>>
 }
 
-const NoProjectsPage = ({ setIsAddProject }: Props) => {
+const NoProjectsPage = ({ setIsAddingProject }: Props) => {
   return (
     <div className="text-center gap-y-8">
       <img
@@ -22,7 +22,7 @@ const NoProjectsPage = ({ setIsAddProject }: Props) => {
       </p>
       <p className="mt-8">
         <button
-          onClick={() => setIsAddProject(true)}
+          onClick={() => setIsAddingProject(true)}
           className="bg-emerald-600 hover:bg-emerald-800 p-2 px-6 rounded-md text-white"
         >
           + Create new project

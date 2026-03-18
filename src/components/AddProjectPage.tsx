@@ -5,11 +5,15 @@ import Input from './Input.js'
 type Props = {
   projects: ProjectCodable[]
   setProjects: Dispatch<SetStateAction<ProjectCodable[]>>
+  setIsAddingProject: Dispatch<SetStateAction<boolean>>
 }
 
-const AddProjectPage = ({ projects, setProjects }: Props) => {
+const AddProjectPage = ({
+  projects,
+  setProjects,
+  setIsAddingProject
+}: Props) => {
   const [isTitleError, setIsTitleError] = useState(false)
-  // const newProject = useRef<ProjectCodable | null>(null)
 
   const title = useRef<HTMLInputElement>(null)
   const description = useRef<HTMLTextAreaElement>(null)
@@ -35,6 +39,7 @@ const AddProjectPage = ({ projects, setProjects }: Props) => {
     }
 
     setProjects(prev => [...prev, newProject])
+    setIsAddingProject(false)
   }
 
   return (
@@ -50,15 +55,18 @@ const AddProjectPage = ({ projects, setProjects }: Props) => {
         </li>
 
         <li>
-          <button className="bg-slate-400 hover:bg-slate-600 p-2 px-4 rounded-md text-white">
+          <button
+            className="bg-slate-400 hover:bg-slate-600 p-2 px-4 rounded-md text-white"
+            onClick={() => setIsAddingProject(false)}
+          >
             Cancel
           </button>
         </li>
       </menu>
 
-      <Input ref={title} label="Title" />
+      <Input type="text" ref={title} label="Title" />
       <Input ref={description} label="Description" isTextarea />
-      <Input ref={dueDate} label="Due Date" />
+      <Input type="date" ref={dueDate} label="Due Date" />
 
       {isTitleError && (
         <p className="text-red-400 mt-2">No title, or title duplicate</p>

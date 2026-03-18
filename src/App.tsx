@@ -7,24 +7,28 @@ import ProjectPage from './components/ProjectPage.js'
 
 function App() {
   const [projects, setProjects] = useState<ProjectCodable[]>([])
-  const [isAddProject, setIsAddProject] = useState(false)
+  const [isAddingProject, setIsAddingProject] = useState(false)
   const [selectedProjectTitle, setSelectedProjectTitle] = useState('')
 
   return (
     <main className="h-screen flex">
       <SideBar
         projects={projects}
-        setIsAddProject={setIsAddProject}
+        setIsAddingProject={setIsAddingProject}
         selectedProjectTitle={selectedProjectTitle}
         setSelectedProjectTitle={setSelectedProjectTitle}
       />
 
-      {isAddProject ? (
-        <AddProjectPage projects={projects} setProjects={setProjects} />
+      {isAddingProject ? (
+        <AddProjectPage
+          projects={projects}
+          setProjects={setProjects}
+          setIsAddingProject={setIsAddingProject}
+        />
       ) : (
         <section className="flex-1 p-10">
           {projects.length === 0 && (
-            <NoProjectsPage setIsAddProject={setIsAddProject} />
+            <NoProjectsPage setIsAddingProject={setIsAddingProject} />
           )}
 
           {projects.length !== 0 && <ProjectPage />}

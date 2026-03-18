@@ -1,13 +1,14 @@
 import { forwardRef } from 'react'
-import type { Ref } from 'react'
+import type { HTMLInputTypeAttribute, Ref } from 'react'
 
 type Props = {
   label: string
   isTextarea?: boolean
+  type?: HTMLInputTypeAttribute
 }
 
 const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, Props>(
-  ({ label, isTextarea, ...props }, ref) => {
+  ({ label, isTextarea, type }, ref) => {
     const classes =
       'w-full p-1 border-b-2 rounded-sm border-stone-300 bg-stone-200 outline-none focus:border-stone-600'
 
@@ -18,16 +19,12 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, Props>(
         </label>
 
         {isTextarea ? (
-          <textarea
-            ref={ref as Ref<HTMLTextAreaElement>}
-            className={classes}
-            {...props}
-          />
+          <textarea ref={ref as Ref<HTMLTextAreaElement>} className={classes} />
         ) : (
           <input
             ref={ref as Ref<HTMLInputElement>}
             className={classes}
-            {...props}
+            type={type}
           />
         )}
       </p>
