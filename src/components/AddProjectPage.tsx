@@ -54,7 +54,14 @@ const AddProjectPage = ({
         </p>
       </Modal>
 
-      <menu className="flex gap-2">
+      <Input type="text" ref={title} label="Title" />
+      <Input ref={description} label="Description" isTextarea />
+      <Input type="date" ref={dueDate} label="Due Date" />
+      {/* {isTitleError && (
+        <p className="text-red-400 mt-2">No title, or title duplicate</p>
+      )} */}
+
+      <menu className="flex gap-2 mt-10 justify-end">
         <li>
           <button
             className="bg-teal-700 hover:bg-teal-800 p-2 px-6 rounded-md text-base font-semibold text-white"
@@ -73,14 +80,6 @@ const AddProjectPage = ({
           </button>
         </li>
       </menu>
-
-      <Input type="text" ref={title} label="Title" />
-      <Input ref={description} label="Description" isTextarea />
-      <Input type="date" ref={dueDate} label="Due Date" />
-      {/* 
-      {isTitleError && (
-        <p className="text-red-400 mt-2">No title, or title duplicate</p>
-      )} */}
     </section>
   )
 }
