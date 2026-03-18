@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useRef, useState } from 'react'
 import { ProjectCodable } from '../models/ProjectCodable.js'
 import Input from './Input.js'
+import Modal from './Modal.js'
 
 type Props = {
   projects: ProjectCodable[]
@@ -16,6 +17,7 @@ const AddProjectPage = ({
   setSelectedProjectTitle
 }: Props) => {
   const [isTitleError, setIsTitleError] = useState(false)
+  const modalRef = useRef(null)
 
   const title = useRef<HTMLInputElement>(null)
   const description = useRef<HTMLTextAreaElement>(null)
@@ -47,6 +49,12 @@ const AddProjectPage = ({
 
   return (
     <section className="p-10 min-w-[50vw]">
+      {isTitleError && (
+        <Modal ref={modalRef}>
+          <p className="text-red-400 mt-2">No title, or title duplicate</p>
+        </Modal>
+      )}
+
       <menu className="flex gap-2">
         <li>
           <button
@@ -70,10 +78,10 @@ const AddProjectPage = ({
       <Input type="text" ref={title} label="Title" />
       <Input ref={description} label="Description" isTextarea />
       <Input type="date" ref={dueDate} label="Due Date" />
-
+      {/* 
       {isTitleError && (
         <p className="text-red-400 mt-2">No title, or title duplicate</p>
-      )}
+      )} */}
     </section>
   )
 }
