@@ -9,13 +9,7 @@ type Props = {
 
 const ProjectPage = ({ setProjects, selectedProject }: Props) => {
   const handleDelete = () => {
-    // const index = projects.indexOf(selectedProject)
-
-    // setProjects(prev => prev.splice(index, 1))
-
     setProjects(prev => prev.filter(p => p.title !== selectedProject.title))
-
-    // setSelectedProjectTitle('')
   }
 
   return (
