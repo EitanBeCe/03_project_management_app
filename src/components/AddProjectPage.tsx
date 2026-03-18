@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useRef, useState } from 'react'
 import { ProjectCodable } from '../models/ProjectCodable.js'
 import Input from './Input.js'
-import Modal from './Modal.js'
+import Modal, { ModalHandle } from './Modal.js'
 
 type Props = {
   projects: ProjectCodable[]
@@ -16,8 +16,7 @@ const AddProjectPage = ({
   setIsAddingProject,
   setSelectedProjectTitle
 }: Props) => {
-  const [isTitleError, setIsTitleError] = useState(false)
-  const modalRef = useRef(null)
+  const errorModalRef = useRef<ModalHandle>(null)
 
   const title = useRef<HTMLInputElement>(null)
   const description = useRef<HTMLTextAreaElement>(null)
@@ -36,9 +35,8 @@ const AddProjectPage = ({
       newProject.title === '' ||
       projects.some(project => project.title === newProject.title)
 
-    setIsTitleError(hasInvalidTitle)
-
     if (hasInvalidTitle) {
+      errorModalRef.current?.open()
       return
     }
 
@@ -49,11 +47,10 @@ const AddProjectPage = ({
 
   return (
     <section className="p-10 min-w-[50vw]">
-      {isTitleError && (
-        <Modal ref={modalRef}>
-          <p className="text-red-400 mt-2">No title, or title duplicate</p>
-        </Modal>
-      )}
+      <Modal ref={errorModalRef}>
+        <h2>Invalid Inut</h2>
+        <p className="text-red-400 mt-2">No title, or title duplicate</p>
+      </Modal>
 
       <menu className="flex gap-2">
         <li>
