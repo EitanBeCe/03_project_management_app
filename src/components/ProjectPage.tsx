@@ -30,6 +30,8 @@ const ProjectPage = ({ projects, setProjects, selectedProject }: Props) => {
       )
     )
 
+    setIsTaskError(false)
+
     if (taskInputRef.current) {
       taskInputRef.current.value = ''
     }
@@ -82,23 +84,66 @@ const ProjectPage = ({ projects, setProjects, selectedProject }: Props) => {
         </p>
       </div>
 
-      <div>
-        <h2>Tasks</h2>
+      <div className="rounded-2xl border border-stone-200 bg-stone-50/70 p-5 shadow-sm">
+        <div className="flex items-center justify-between gap-3">
+          <div>
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-teal-700">
+              Tasks
+            </p>
+            <h2 className="mt-1 text-2xl font-bold text-slate-900">
+              Project checklist
+            </h2>
+          </div>
 
-        <div className="flex">
-          <Input ref={taskInputRef} label="Add task" />
-          <button onClick={handleAddTask}>Add</button>
+          <span className="rounded-full bg-white px-3 py-1 text-sm font-medium text-slate-500 shadow-sm">
+            {selectedProject.tasks?.length ?? 0} items
+          </span>
         </div>
 
-        {isTaskError && 'Error text'}
+        <div className="mt-5 flex items-end gap-3">
+          <div className="flex-1">
+            <Input ref={taskInputRef} label="Add task" />
+          </div>
 
-        <ul>
+          <button
+            onClick={handleAddTask}
+            className="h-fit rounded-md bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+          >
+            Add
+          </button>
+        </div>
+
+        {isTaskError && (
+          <p className="mt-3 rounded-md border border-rose-200 bg-rose-50 px-3 py-2 text-sm font-medium text-rose-700">
+            Enter a unique task name. Empty tasks and duplicates are not
+            allowed.
+          </p>
+        )}
+
+        <ul className="mt-5 flex flex-col gap-3">
           {selectedProject.tasks?.map(t => (
-            <li key={t.text}>
-              {t.text}{' '}
-              <button onClick={() => handleDeleteTask(t.text)}>Clear</button>
+            <li
+              key={t.text}
+              className="flex items-center justify-between gap-3 rounded-xl border border-stone-200 bg-white px-4 py-3 shadow-sm"
+            >
+              <span className="text-sm font-medium text-slate-700">
+                {t.text}
+              </span>
+
+              <button
+                onClick={() => handleDeleteTask(t.text)}
+                className="rounded-md border border-stone-200 px-3 py-1.5 text-sm font-semibold text-slate-600 transition hover:border-rose-200 hover:bg-rose-50 hover:text-rose-700"
+              >
+                Clear
+              </button>
             </li>
           ))}
+
+          {!selectedProject.tasks?.length && (
+            <li className="rounded-xl border border-dashed border-stone-300 bg-white/80 px-4 py-6 text-center text-sm text-slate-500">
+              No tasks yet. Add the first step for this project.
+            </li>
+          )}
         </ul>
       </div>
     </section>
