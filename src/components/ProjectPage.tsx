@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useRef } from 'react'
+import { Dispatch, SetStateAction, useRef, useState } from 'react'
 import { ProjectCodable, TaskCodable } from '../models/ProjectCodable.js'
 import Input from './Input.js'
 
@@ -10,27 +10,45 @@ type Props = {
 
 const ProjectPage = ({ projects, setProjects, selectedProject }: Props) => {
   const taskInputRef = useRef<HTMLInputElement>(null)
+  const [isTaskError, setIsTaskError] = useState(false)
 
   const handleAddTask = () => {
     const text = taskInputRef.current?.value.trim()
-    if (!text) return
+
+    if (!text || selectedProject.tasks?.some(t => t.text === text)) {
+      setIsTaskError(true)
+      return
+    }
 
     const tasks: TaskCodable[] = [...(selectedProject.tasks ?? []), { text }]
 
     const updatedProject: ProjectCodable = { ...selectedProject, tasks }
 
-    setProjects(prev => {
-      return prev.map(project =>
+    setProjects(prev =>
+      prev.map(project =>
         project.title === selectedProject.title ? updatedProject : project
       )
-    })
+    )
 
     if (taskInputRef.current) {
       taskInputRef.current.value = ''
     }
   }
 
-  // const handleDeleteTask
+  const handleDeleteTask = (taskText: string) => {
+    const tasks: TaskCodable[] =
+      selectedProject.tasks?.filter(t => t.text !== taskText) ??
+      selectedProject.tasks ??
+      []
+
+    const updatedProject: ProjectCodable = { ...selectedProject, tasks }
+
+    setProjects(prev =>
+      prev.map(project =>
+        project.title === selectedProject.title ? updatedProject : project
+      )
+    )
+  }
 
   const handleDeleteProject = () => {
     setProjects(prev => prev.filter(p => p.title !== selectedProject.title))
@@ -67,12 +85,19 @@ const ProjectPage = ({ projects, setProjects, selectedProject }: Props) => {
       <div>
         <h2>Tasks</h2>
 
-        <Input ref={taskInputRef} label="Add task" />
-        <button onClick={handleAddTask}>Save</button>
+        <div className="flex">
+          <Input ref={taskInputRef} label="Add task" />
+          <button onClick={handleAddTask}>Add</button>
+        </div>
+
+        {isTaskError && 'Error text'}
 
         <ul>
-          {selectedProject.tasks?.map(p => (
-            <li key={p.text}>{p.text}</li>
+          {selectedProject.tasks?.map(t => (
+            <li key={t.text}>
+              {t.text}{' '}
+              <button onClick={() => handleDeleteTask(t.text)}>Clear</button>
+            </li>
           ))}
         </ul>
       </div>
