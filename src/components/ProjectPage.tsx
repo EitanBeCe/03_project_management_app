@@ -3,12 +3,11 @@ import { ProjectCodable, TaskCodable } from '../models/ProjectCodable.js'
 import Input from './Input.js'
 
 type Props = {
-  projects: ProjectCodable[]
   setProjects: Dispatch<SetStateAction<ProjectCodable[]>>
   selectedProject: ProjectCodable
 }
 
-const ProjectPage = ({ projects, setProjects, selectedProject }: Props) => {
+const ProjectPage = ({ setProjects, selectedProject }: Props) => {
   const taskInputRef = useRef<HTMLInputElement>(null)
   const [isTaskError, setIsTaskError] = useState(false)
 
