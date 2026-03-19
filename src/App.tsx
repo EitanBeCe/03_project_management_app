@@ -37,10 +37,9 @@ function App() {
           {projects.length !== 0 &&
             (selectedProject ? (
               <ProjectPage
+                projects={projects}
                 selectedProject={selectedProject}
-                // projects={projects}
                 setProjects={setProjects}
-                // setSelectedProjectTitle={setSelectedProjectTitle}
               />
             ) : (
               <NoProjectsPage setIsAddingProject={setIsAddingProject} />
